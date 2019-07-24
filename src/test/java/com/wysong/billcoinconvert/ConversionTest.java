@@ -1,12 +1,18 @@
 package com.wysong.billcoinconvert;
 
-import org.json.JSONObject;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.wysong.billcoinconvert.controller.InitializeBody;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.junit4.SpringRunner;
+
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
@@ -35,16 +41,40 @@ import static org.hamcrest.Matchers.*;
  *
  * @since July 24, 2019.
  */
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ConversionTest {
+
+    @LocalServerPort
+    int testingPort;
+
+    @Before
+    public void setUp() {
+        RestAssured.port = testingPort;
+    }
 
     @Test
     public void testInitialState() {
-        given().params(Collections.emptyMap()).when().post("/initialize").then().assertThat().body("*", equalTo(100));
+
+        final Response response = given().contentType(ContentType.JSON).body(new InitializeBody()).when().post("/initialize");
+        response.then().assertThat()
+                .statusCode(HttpStatus.CREATED.value())
+                .body("numAvailable", not(lessThan(100)))
+                .body("numAvailable", not(greaterThan(100)));
+
 
 
         final int NUMBER_TO_CHECK = 30;
-        given().params("number", NUMBER_TO_CHECK).when().post("/initialize").then().assertThat().body("*", equalTo(NUMBER_TO_CHECK));
+        given()
+                .contentType(ContentType.JSON)
+                .body(new InitializeBody(NUMBER_TO_CHECK))
+                .when()
+                .post("/initialize")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.CREATED.value())
+                .body("numAvailable", not(lessThan(NUMBER_TO_CHECK)))
+                .body("numAvailable", not(greaterThan(NUMBER_TO_CHECK)));
 
     }
 }
