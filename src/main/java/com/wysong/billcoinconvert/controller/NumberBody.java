@@ -1,11 +1,13 @@
 package com.wysong.billcoinconvert.controller;
 
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 /**
  * @since July 24, 2019.
  */
 public class NumberBody {
+    @Min(value = 1, message = "This machine must start with something.  Please use a positive integer.")
     private Integer number;
 
     public NumberBody() {

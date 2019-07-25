@@ -186,7 +186,7 @@ public class ConversionTest {
         return given()
                 .contentType(ContentType.JSON)
                 .body(billSupplies)
-                .log().body()
+//                .log().body()
                 .when()
                 .post("convert");
 

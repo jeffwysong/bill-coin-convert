@@ -1,12 +1,16 @@
 package com.wysong.billcoinconvert.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Objects;
 
 /**
  * @since July 24, 2019.
  */
 public class BillSupply {
+    @ApiModelProperty(notes = "The value of the bill, like 1, 2, 5, 10...")
     private int billValue;
+    @ApiModelProperty(notes = "The number of bills that will be provided.")
     private int numProvided;
 
     public BillSupply() {
