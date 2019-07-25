@@ -5,13 +5,13 @@ import java.util.Objects;
 /**
  * @since July 24, 2019.
  */
-public class InitializeBody {
+public class NumberBody {
     private Integer number;
 
-    public InitializeBody() {
+    public NumberBody() {
     }
 
-    public InitializeBody(Integer number) {
+    public NumberBody(Integer number) {
         this.number = number;
     }
 
@@ -19,7 +19,7 @@ public class InitializeBody {
         return number;
     }
 
-    public InitializeBody setNumber(Integer number) {
+    public NumberBody setNumber(Integer number) {
         this.number = number;
         return this;
     }
@@ -28,7 +28,7 @@ public class InitializeBody {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InitializeBody that = (InitializeBody) o;
+        NumberBody that = (NumberBody) o;
         return Objects.equals(getNumber(), that.getNumber());
     }
 
