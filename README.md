@@ -7,7 +7,7 @@
 
 #### Ways to interact with the REST Api
 1. Use the swagger ui:
-    1. Open up a web browser and go to: [http://localhost:8080/swagger-ui.html]http://localhost:8080/swagger-ui.html
+    1. Open up a web browser and go to: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
     
 1.  Use curl:
     1.  Open a command prompt that has curl installed.
