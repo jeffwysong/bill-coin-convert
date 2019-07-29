@@ -75,8 +75,12 @@ public class DefaultCoinManager implements CoinManager {
             }
 
             CoinBank coinBank = valueCoinBankMap.get(coin.getValue());
+            if (coinBank.getNumAvailable() == 0) {
+                continue;
+            }
             int numToReturn = Math.min(numOfNeededCoins, coinBank.getNumAvailable());
             updateCoinBank(coinBank, numToReturn);
+            //Create snapshot of what is needed.
 
             cents = cents - (coin.getValue() * numToReturn);
 
@@ -89,6 +93,8 @@ public class DefaultCoinManager implements CoinManager {
 
         }
 
+        //try to withdraw the snapshot.
+        //coinBankUpdater.withdraw(Snapshot snapshot);
         checkIfBrokeTheBank();
 
         return coinsReturned;

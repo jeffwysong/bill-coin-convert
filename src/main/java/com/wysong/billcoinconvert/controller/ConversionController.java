@@ -46,7 +46,7 @@ public class ConversionController {
     }
 
     /**
-     * Endpoint to chect the contents of the machine.
+     * Endpoint to check the contents of the machine.
      *
      * @return the entire contents of the machine
      */
